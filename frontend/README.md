@@ -28,4 +28,4 @@ npm start
 
 
 ## Deployment
-frontend - 
+frontend (vercel)- seat-reservation-82gg-4rm9jua21-thulanis-projects-4c7919cf.vercel.app

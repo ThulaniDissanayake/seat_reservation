@@ -17,7 +17,7 @@ const AdminReservations = () => {
       setReservations(data);
       setMessage('');
     } catch (err) {
-      console.error('❌ Error fetching reservations:', err);
+      console.error(' Error fetching reservations:', err);
       setMessage('Failed to fetch reservations');
     }
   };
@@ -62,7 +62,7 @@ const AdminReservations = () => {
       borderRadius: '4px',
       border: '1px solid #ccc',
       minWidth: '150px',
-      outlineColor: '#ff6600', // Orange outline on focus
+      outlineColor: '#ff6600', 
       transition: 'border-color 0.3s',
     },
     button: {

@@ -17,7 +17,7 @@ const ManualAssignSeat = () => {
         date,
         time_slot: timeSlot,
       });
-      setMessage('✅ Seat successfully assigned!');
+      setMessage(' Seat successfully assigned!');
     } catch (err) {
       setMessage(`❌ ${err.response?.data?.message || 'Failed to assign seat'}`);
     }

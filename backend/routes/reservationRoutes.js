@@ -17,7 +17,7 @@ router.get('/my', auth, myReservations);
 router.delete('/:id', auth, cancelMyReservation);
 router.put('/:id', auth, modifyReservation);
 
-// ✅ Admin route
+// Admin route
 router.get('/all', auth, isAdmin, getAllReservations);
 router.post('/assign', auth, isAdmin, assignSeatToIntern);
 

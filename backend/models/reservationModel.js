@@ -66,7 +66,7 @@ export const getAllReservationsQuery = async (date, internId) => {
   }
 
   const [rows] = await pool.query(query, params);
-  return rows;  // <-- Correct: return rows, no res.json here
+  return rows;  
 };
 
 export const hasInternReservedForDate = async (internId, date) => {

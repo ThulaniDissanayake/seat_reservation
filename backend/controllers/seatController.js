@@ -7,7 +7,7 @@ export const listSeats = async (req, res) => {
     const seats = await getAllSeats();
     res.json(seats);
   } catch (err) {
-    console.error('❌ Fetch Seats Error:', err.message);
+    console.error(' Fetch Seats Error:', err.message);
     res.status(500).json({ message: 'Failed to fetch seats' });
   }
 };
@@ -18,7 +18,7 @@ export const createSeat = async (req, res) => {
     const id = await addSeat(seatNumber, location, status);
     res.status(201).json({ id, seatNumber, location, status });
   } catch (err) {
-    console.error('❌ Create Seat Error:', err.message);
+    console.error(' Create Seat Error:', err.message);
     res.status(500).json({ message: 'Failed to create seat' });
   }
 };
@@ -30,7 +30,7 @@ export const editSeat = async (req, res) => {
     await updateSeat(id, seatNumber, location, status);
     res.json({ message: 'Seat updated successfully' });
   } catch (err) {
-    console.error('❌ Edit Seat Error:', err.message);
+    console.error(' Edit Seat Error:', err.message);
     res.status(500).json({ message: 'Failed to update seat' });
   }
 };
@@ -41,7 +41,7 @@ export const removeSeat = async (req, res) => {
     await deleteSeat(id);
     res.json({ message: 'Seat removed successfully' });
   } catch (err) {
-    console.error('❌ Delete Seat Error:', err.message);
+    console.error(' Delete Seat Error:', err.message);
     res.status(500).json({ message: 'Failed to delete seat' });
   }
 };
@@ -61,7 +61,7 @@ export const getSeatUsageReport = async (req, res) => {
 
     res.json(rows);
   } catch (err) {
-    console.error('❌ Report Error:', err.message);
+    console.error('Report Error:', err.message);
     res.status(500).json({ message: 'Failed to generate report' });
   }
 };
@@ -78,7 +78,7 @@ export const getAvailableSeats = async (req, res) => {
     const availableSeats = await getAvailableSeatsByDate(date, timeSlot);  // Pass as is
     res.json(availableSeats);
   } catch (err) {
-    console.error('❌ Fetch Available Seats Error:', err.message);
+    console.error(' Fetch Available Seats Error:', err.message);
     res.status(500).json({ message: 'Failed to fetch available seats' });
   }
 };

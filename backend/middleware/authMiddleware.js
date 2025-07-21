@@ -12,7 +12,7 @@ export const auth = (req, res, next) => {
     req.user = decoded;  // { id, role } expected in token
     next();
   } catch (err) {
-    console.error('❌ JWT Verification Error:', err.message);
+    console.error(' JWT Verification Error:', err.message);
     res.status(401).json({ message: 'Invalid or expired token' });
   }
 };

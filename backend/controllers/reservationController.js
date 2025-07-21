@@ -54,7 +54,7 @@ export const reserveSeat = async (req, res) => {
     );
     res.status(201).json({ reservationId });
   } catch (err) {
-    console.error('❌ Reserve Seat Error:', err.message);
+    console.error('Reserve Seat Error:', err.message);
     res.status(500).json({ message: 'Failed to reserve seat' });
   }
 };
@@ -65,7 +65,7 @@ export const myReservations = async (req, res) => {
     const reservations = await getReservationsByIntern(req.user.id);
     res.json(reservations);
   } catch (err) {
-    console.error('❌ My Reservations Error:', err.message);
+    console.error(' My Reservations Error:', err.message);
     res.status(500).json({ message: 'Failed to fetch reservations' });
   }
 };
@@ -91,7 +91,7 @@ export const cancelMyReservation = async (req, res) => {
     await cancelReservation(id);
     res.json({ message: 'Reservation cancelled' });
   } catch (err) {
-    console.error('❌ Cancel Reservation Error:', err.message);
+    console.error(' Cancel Reservation Error:', err.message);
     res.status(500).json({ message: 'Failed to cancel reservation' });
   }
 };
@@ -123,7 +123,7 @@ export const modifyReservation = async (req, res) => {
     await updateReservation(id, internId, seat_id, date, time_slot);
     res.json({ message: 'Reservation updated' });
   } catch (err) {
-    console.error('❌ Modify Reservation Error:', err.message);
+    console.error(' Modify Reservation Error:', err.message);
     res.status(500).json({ message: 'Failed to modify reservation' });
   }
 };
@@ -135,7 +135,7 @@ export const getAllReservations = async (req, res) => {
     const reservations = await getAllReservationsQuery(date, internId);
     res.json(reservations);
   } catch (err) {
-    console.error('❌ Fetch All Reservations Error:', err.message);
+    console.error('Fetch All Reservations Error:', err.message);
     res.status(500).json({ message: 'Failed to fetch reservations' });
   }
 };
@@ -171,7 +171,7 @@ export const assignSeatToIntern = async (req, res) => {
 
     res.status(201).json({ message: 'Seat assigned', reservationId });
   } catch (err) {
-    console.error('❌ Manual Assign Error:', err.message);
+    console.error(' Manual Assign Error:', err.message);
     res.status(500).json({ message: 'Failed to assign seat' });
   }
 };

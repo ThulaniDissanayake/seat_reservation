@@ -7,7 +7,7 @@ import Register from './pages/Register';
 import Seats from './pages/Seats';
 import Reservations from './pages/Reservations';
 import AdminSeats from './pages/AdminSeats';
-import SeatUsageReport from './components/SeatUsageReport';  // <-- Import the report component
+import SeatUsageReport from './components/SeatUsageReport';  
 import AdminReservations from './pages/AdminReservations';
 import ManualAssignSeat from './pages/ManualAssignSeat';
 
@@ -23,7 +23,7 @@ const App = () => (
         <Route path="/seats" element={<Seats />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/admin/seats" element={<AdminSeats />} />
-        <Route path="/admin/reports" element={<SeatUsageReport />} />  {/* <-- New route */}
+        <Route path="/admin/reports" element={<SeatUsageReport />} />  
         <Route path="/admin/reservations" element={<AdminReservations />} />
         <Route path="/admin/manual-assign" element={<ManualAssignSeat />} />
 
