@@ -31,24 +31,23 @@ const AdminReservations = () => {
     fetchReservations();
   };
 
-  // Helper: get color based on status
+ 
   const getStatusColor = (status) => {
-    if (!status) return '#666'; // default gray
+    if (!status) return '#666'; 
     switch (status.toLowerCase()) {
       case 'active':
-        return '#006400'; // dark green
+        return '#006400'; 
       case 'cancelled':
       case 'cancel':
-        return '#b22222'; // firebrick red
+        return '#b22222'; 
       default:
-        return '#666'; // gray fallback
+        return '#666'; 
     }
   };
 
-  // Colors for alternating strips
-  const stripColors = ['#fff7e6', '#fff0b8']; // light warm yellows
+  
+  const stripColors = ['#fff7e6', '#fff0b8']; 
 
-  // Inline styles
   const styles = {
     container: {
       maxWidth: '800px',
