@@ -41,7 +41,7 @@ const Login = () => {
     }
   };
 
-  // --- Styles
+  //Styles
   const pageStyle = {
     background: "linear-gradient(to right, #fceabb, #f8b500)",
     minHeight: "100vh",
@@ -58,7 +58,7 @@ const Login = () => {
     width: '100%',
     padding: '40px 30px',
     borderRadius: '20px',
-    backgroundColor: 'rgba(255, 255, 255, 0.75)', // semi-transparent white
+    backgroundColor: 'rgba(255, 255, 255, 0.75)', 
     boxShadow: '0 15px 30px rgba(0, 0, 0, 0.1)',
     backdropFilter: 'blur(8px)',
     animation: 'fadeIn 0.6s ease forwards',
@@ -162,7 +162,7 @@ const Login = () => {
       <style>{fadeInKeyframes}</style>
       <div style={pageStyle}>
         <form onSubmit={handleSubmit} style={containerStyle}>
-          {/* Lock Icon */}
+          
           <div
             style={{
               textAlign: "center",
