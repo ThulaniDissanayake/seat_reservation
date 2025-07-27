@@ -104,7 +104,7 @@ const Home = () => {
     <div style={pageStyle}>
       <div style={contentWrapperStyle}>
         <div style={containerStyle}>
-          <h1 style={headingStyle}>InternDesk New</h1>
+          <h1 style={headingStyle}>InternDesk</h1>
           <h4 style={subheadingStyle}>Seat Reservation System</h4>
           <p style={paragraphStyle}>
             Reserve your seat with ease. Login or register to continue.
