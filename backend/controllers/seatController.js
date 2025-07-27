@@ -69,13 +69,13 @@ export const getSeatUsageReport = async (req, res) => {
 
 export const getAvailableSeats = async (req, res) => {
   try {
-    const { date, timeSlot } = req.query;  // expecting frontend's camelCase
+    const { date, timeSlot } = req.query;  
 
     if (!date || !timeSlot) {
       return res.status(400).json({ message: 'Date and timeSlot query parameters are required' });
     }
 
-    const availableSeats = await getAvailableSeatsByDate(date, timeSlot);  // Pass as is
+    const availableSeats = await getAvailableSeatsByDate(date, timeSlot);  
     res.json(availableSeats);
   } catch (err) {
     console.error(' Fetch Available Seats Error:', err.message);
