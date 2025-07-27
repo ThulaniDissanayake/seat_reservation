@@ -9,7 +9,7 @@ import {
   hasInternReservedForDate
 } from '../models/reservationModel.js';
 
-// Helper functions
+
 const isPastDate = (date) => {
   const selectedDate = new Date(date);
   const today = new Date();
@@ -23,7 +23,7 @@ const isAtLeastOneHourAhead = (date, timeSlot) => {
   return targetTime.getTime() - now.getTime() >= 60 * 60 * 1000;
 };
 
-// ✅ Reserve Seat (Intern)
+// Reserve Seat (Intern)
 export const reserveSeat = async (req, res) => {
   try {
     const { seat_id, date, time_slot } = req.body;
@@ -59,7 +59,7 @@ export const reserveSeat = async (req, res) => {
   }
 };
 
-// ✅ Get My Reservations
+// Get My Reservations
 export const myReservations = async (req, res) => {
   try {
     const reservations = await getReservationsByIntern(req.user.id);
@@ -70,7 +70,7 @@ export const myReservations = async (req, res) => {
   }
 };
 
-// ✅ Cancel My Reservation
+// Cancel My Reservation
 export const cancelMyReservation = async (req, res) => {
   try {
     const { id } = req.params;
@@ -96,7 +96,7 @@ export const cancelMyReservation = async (req, res) => {
   }
 };
 
-// ✅ Modify My Reservation
+// Modify My Reservation
 export const modifyReservation = async (req, res) => {
   try {
     const { id } = req.params;
@@ -128,7 +128,7 @@ export const modifyReservation = async (req, res) => {
   }
 };
 
-// ✅ Get All Reservations (Admin)
+// Get All Reservations (Admin)
 export const getAllReservations = async (req, res) => {
   try {
     const { date, internId } = req.query;
@@ -140,7 +140,7 @@ export const getAllReservations = async (req, res) => {
   }
 };
 
-// ✅ Assign Seat to Intern (Admin)
+// Assign Seat to Intern (Admin)
 export const assignSeatToIntern = async (req, res) => {
   try {
     const { internId, seat_id, date, time_slot } = req.body;
