@@ -1,8 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { FaHome } from 'react-icons/fa'; // 🏠 Home icon
 
 const Navbar = () => {
-  const { token, user, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -10,58 +12,133 @@ const Navbar = () => {
     navigate('/');
   };
 
-  const navStyle = {
-    padding: '10px 20px',
-    backgroundColor: '#333',
-    color: '#fff',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px',
-    fontFamily: 'Arial, sans-serif',
-  };
-
-  const linkStyle = {
-    color: '#f0a500',
+  const baseLinkStyle = {
+    marginRight: '20px',
     textDecoration: 'none',
+    color: 'white',
+    display: 'inline-flex',
+    alignItems: 'center',
+  };
+
+  const activeLinkStyle = {
+    color: '#f0a500',
     fontWeight: 'bold',
   };
 
-  const buttonStyle = {
-    backgroundColor: '#f0a500',
-    border: 'none',
-    padding: '6px 12px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    color: '#333',
-  };
-
-  const separator = (
-    <span style={{ color: '#999', userSelect: 'none' }}>|</span>
-  );
+  const isAdmin = user?.role === 'Admin';
 
   return (
-    <nav style={navStyle}>
-      <Link to="/" style={linkStyle}>Home</Link> {separator}
-      {token ? (
-        <>
-          <Link to="/seats" style={linkStyle}>Seats</Link> {separator}
-          <Link to="/reservations" style={linkStyle}>My Reservations</Link> {separator}
+    <nav
+      style={{
+        backgroundColor: '#333',
+        padding: '10px 20px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
+      {/* Left Section */}
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <NavLink
+          to="/"
+          style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+        >
+          <FaHome style={{ marginRight: '5px' }} />
+          Home
+        </NavLink>
 
-          {user?.role === 'Admin' && (
-            <>
-              <Link to="/admin/seats" style={linkStyle}>Admin Seats</Link> {separator}
-              <Link to="/admin/manual-assign" style={linkStyle}>Manual Assign</Link> {separator}
-            </>
-          )}
+        {user ? (
+          <>
+            {!isAdmin ? (
+              <>
+                <NavLink
+                  to="/seats"
+                  style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+                >
+                  Seats
+                </NavLink>
+                <NavLink
+                  to="/reservations"
+                  style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+                >
+                  My Reservations
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <span style={{ ...baseLinkStyle, opacity: 0.4, pointerEvents: 'none' }}>Seats</span>
+                <span style={{ ...baseLinkStyle, opacity: 0.4, pointerEvents: 'none' }}>My Reservations</span>
+              </>
+            )}
 
-          <button onClick={handleLogout} style={buttonStyle}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/login" style={linkStyle}>Login</Link> {separator}
-          <Link to="/register" style={linkStyle}>Register</Link>
-        </>
+            {isAdmin && (
+              <>
+                <NavLink
+                  to="/admin/seats"
+                  style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+                >
+                  Admin Seats
+                </NavLink>
+                <NavLink
+                  to="/admin/reports"
+                  style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+                >
+                  Reports
+                </NavLink>
+                <NavLink
+                  to="/admin/reservations"
+                  style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+                >
+                  All Reservations
+                </NavLink>
+                <NavLink
+                  to="/admin/manual-assign"
+                  style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+                >
+                  Manual Assign
+                </NavLink>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <NavLink
+              to="/login"
+              style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/register"
+              style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+            >
+              Register
+            </NavLink>
+          </>
+        )}
+      </div>
+
+      {/* Right Section */}
+      {user && (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span style={{ color: 'white', marginRight: '15px' }}>
+            Welcome, {user.name} ({user.role})
+          </span>
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: '#f0a500',
+              border: 'none',
+              color: 'white',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            Logout
+          </button>
+        </div>
       )}
     </nav>
   );
