@@ -24,7 +24,7 @@ const AdminReservations = () => {
 
   useEffect(() => {
     fetchReservations();
-  }, []);
+  }, );
 
   const handleSearch = (e) => {
     e.preventDefault();
