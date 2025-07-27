@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaTrash, FaEdit } from 'react-icons/fa';
 import api from '../api/api';
 
 const AdminSeats = () => {
@@ -89,87 +90,224 @@ const AdminSeats = () => {
     }
   };
 
-  const containerStyle = { maxWidth: '700px', margin: '40px auto', padding: '25px', backgroundColor: '#fafafa', borderRadius: '10px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" };
-  const headingStyle = { textAlign: 'center', color: '#f0a500', marginBottom: '25px', fontSize: '2rem', fontWeight: '700' };
-  const formStyle = { display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '20px', flexWrap: 'wrap' };
-  const inputStyle = { padding: '10px', fontSize: '1rem', borderRadius: '6px', border: '1px solid #ccc', width: '200px' };
-  const buttonStyle = { padding: '10px 18px', fontSize: '1rem', backgroundColor: '#f0a500', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '600', transition: 'background-color 0.3s ease' };
-  const buttonHoverStyle = { backgroundColor: '#d18e00' };
+  // ✨ Style Definitions
+  const pageStyle = {
+    backgroundColor: '#f5f5f5',
+    minHeight: '100vh',
+    padding: '40px 10px'
+  };
+
+  const containerStyle = {
+    maxWidth: '700px',
+    margin: '0 auto',
+    padding: '25px',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    borderRadius: '10px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  };
+
+  const headingStyle = {
+    textAlign: 'center',
+    color: '#241a05ff',
+    marginBottom: '25px',
+    fontSize: '2rem',
+    fontWeight: '700'
+  };
+
+  const formStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '15px',
+    marginBottom: '20px',
+    flexWrap: 'wrap'
+  };
+
+  const inputStyle = {
+    padding: '10px',
+    fontSize: '1rem',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    width: '200px'
+  };
+
+  const buttonStyle = {
+    padding: '10px 18px',
+    fontSize: '1rem',
+    backgroundColor: '#e95119ff', // coral
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    transition: 'background-color 0.3s ease'
+  };
+
+  const buttonHoverStyle = { backgroundColor: '#fa7851ff' }; // darker coral
+
+  const listContainerStyle = {
+    maxHeight: '320px',
+    overflowY: 'auto',
+    paddingRight: '5px',
+    marginTop: '10px'
+  };
+
   const listStyle = { listStyle: 'none', padding: 0 };
-  const listItemStyle = { backgroundColor: '#fff', borderRadius: '6px', marginBottom: '15px', padding: '15px 20px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem' };
-  const toggleButtonStyle = { padding: '6px 12px', fontSize: '0.9rem', borderRadius: '6px', border: 'none', cursor: 'pointer', backgroundColor: '#007bff', color: '#fff', fontWeight: '600', transition: 'background-color 0.3s ease' };
-  const reportButtonStyle = { ...buttonStyle, marginBottom: '20px', width: 'fit-content' };
+
+  const listItemStyle = {
+    backgroundColor: '#fff',
+    borderRadius: '6px',
+    marginBottom: '15px',
+    padding: '15px 20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    fontSize: '1.1rem'
+  };
+
+  const iconButtonStyle = {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#333',
+    fontSize: '1.2rem'
+  };
+
+  const reportButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#ff9d4dff',
+    marginBottom: '20px',
+    width: 'fit-content'
+  };
+
+  const reportButtonHover = '#b33600ff';
 
   return (
-    <div style={containerStyle}>
-      <h2 style={headingStyle}>Admin Seat Management</h2>
+    <div style={pageStyle}>
+      <div style={containerStyle}>
+        <h2 style={headingStyle}>Admin Seat Management</h2>
 
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-        <button
-          style={reportButtonStyle}
-          onClick={() => navigate('/admin/reports')}
-          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}
-          type="button"
-        >
-          View Seat Usage Report
-        </button>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <button
+            style={reportButtonStyle}
+            onClick={() => navigate('/admin/reports')}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = reportButtonHover)}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = reportButtonStyle.backgroundColor)}
+            type="button"
+          >
+            View Seat Usage Report
+          </button>
 
-        <button
-          style={reportButtonStyle}
-          onClick={() => navigate('/admin/reservations')}
-          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}
-          type="button"
-        >
-          View All Reservations
-        </button>
+          <button
+            style={reportButtonStyle}
+            onClick={() => navigate('/admin/reservations')}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = reportButtonHover)}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = reportButtonStyle.backgroundColor)}
+            type="button"
+          >
+            View All Reservations
+          </button>
+        </div>
+
+        <form style={formStyle} onSubmit={addSeat}>
+          <input
+            style={inputStyle}
+            value={seatNumber}
+            onChange={(e) => setSeatNumber(e.target.value)}
+            placeholder="Seat Number"
+            required
+            type="text"
+          />
+          <input
+            style={inputStyle}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Location"
+            required
+            type="text"
+          />
+          <button
+            style={buttonStyle}
+            type="submit"
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}
+          >
+            Add Seat
+          </button>
+        </form>
+
+        <div style={listContainerStyle}>
+          <ul style={listStyle}>
+            {seats.length === 0 && <p>No seats found.</p>}
+            {seats.map((seat) => (
+              <li key={seat.id} style={listItemStyle}>
+                {editId === seat.id ? (
+                  <>
+                    <div>
+                      <input
+                        style={{ ...inputStyle, marginBottom: '5px' }}
+                        value={editSeatNumber}
+                        onChange={(e) => setEditSeatNumber(e.target.value)}
+                        placeholder="Seat Number"
+                      />
+                      <input
+                        style={inputStyle}
+                        value={editLocation}
+                        onChange={(e) => setEditLocation(e.target.value)}
+                        placeholder="Location"
+                      />
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button title="Save" style={iconButtonStyle} onClick={() => submitEdit(seat.id)}>
+                        💾
+                      </button>
+                      <button title="Cancel" style={iconButtonStyle} onClick={cancelEdit}>
+                        ❌
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <span>
+                      <strong>{seat.seatNumber}</strong> - {seat.location} -{' '}
+                      <em style={{ textTransform: 'capitalize' }}>{seat.status}</em>
+                    </span>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <button
+                        title="Toggle Status"
+                        style={iconButtonStyle}
+                        onClick={() => toggleStatus(seat.id, seat.status)}
+                      >
+                        🔄
+                      </button>
+                      <button title="Edit" style={iconButtonStyle} onClick={() => startEdit(seat)}>
+                        <FaEdit />
+                      </button>
+                      <button title="Delete" style={iconButtonStyle} onClick={() => deleteSeat(seat.id)}>
+                        <FaTrash color="#dc3545" />
+                      </button>
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {message && (
+          <p
+            style={{
+              textAlign: 'center',
+              color: message.toLowerCase().includes('failed') ? '#e74c3c' : '#27ae60',
+              fontWeight: '600',
+              marginTop: '20px'
+            }}
+          >
+            {message}
+          </p>
+        )}
       </div>
-
-      <form style={formStyle} onSubmit={addSeat}>
-        <input style={inputStyle} value={seatNumber} onChange={(e) => setSeatNumber(e.target.value)} placeholder="Seat Number" required type="text" />
-        <input style={inputStyle} value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Location" required type="text" />
-        <button style={buttonStyle} type="submit" onMouseOver={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor)} onMouseOut={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}>
-          Add Seat
-        </button>
-      </form>
-
-      <ul style={listStyle}>
-        {seats.length === 0 && <p>No seats found.</p>}
-        {seats.map((seat) => (
-          <li key={seat.id} style={listItemStyle}>
-            {editId === seat.id ? (
-              <>
-                <div>
-                  <input style={{ ...inputStyle, marginBottom: '5px' }} value={editSeatNumber} onChange={(e) => setEditSeatNumber(e.target.value)} placeholder="Seat Number" />
-                  <input style={inputStyle} value={editLocation} onChange={(e) => setEditLocation(e.target.value)} placeholder="Location" />
-                </div>
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <button style={toggleButtonStyle} onClick={() => submitEdit(seat.id)}>Save</button>
-                  <button style={{ ...toggleButtonStyle, backgroundColor: '#6c757d' }} onClick={cancelEdit}>Cancel</button>
-                </div>
-              </>
-            ) : (
-              <>
-                <span>
-                  <strong>{seat.seatNumber}</strong> - {seat.location} - <em style={{ textTransform: 'capitalize' }}>{seat.status}</em>
-                </span>
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <button style={toggleButtonStyle} onClick={() => toggleStatus(seat.id, seat.status)}>Toggle Status</button>
-                  <button style={{ ...toggleButtonStyle, backgroundColor: '#28a745' }} onClick={() => startEdit(seat)}>Edit</button>
-                  <button style={{ ...toggleButtonStyle, backgroundColor: '#dc3545' }} onClick={() => deleteSeat(seat.id)}>Delete</button>
-                </div>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      {message && (
-        <p style={{ textAlign: 'center', color: message.toLowerCase().includes('failed') ? '#e74c3c' : '#27ae60', fontWeight: '600', marginTop: '20px' }}>
-          {message}
-        </p>
-      )}
     </div>
   );
 };
