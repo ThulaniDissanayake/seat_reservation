@@ -29,7 +29,7 @@ const SeatUsageReport = () => {
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
-    // Center title
+   
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -54,7 +54,7 @@ const SeatUsageReport = () => {
         halign: 'center',
       },
       headStyles: {
-        fillColor: [0, 102, 204], // blue header
+        fillColor: [0, 102, 204], 
         textColor: 255,
         halign: 'center',
         fontStyle: 'bold',
