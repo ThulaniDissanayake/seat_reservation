@@ -30,7 +30,7 @@ export const getAvailableSeatsByDate = async (date, timeSlot) => {
       SELECT seat_id FROM reservations WHERE date = ? AND time_slot = ? AND status = 'Active'
     )
   `;
-  const [rows] = await pool.query(query, [date, timeSlot]);  // Pass timeSlot to SQL
+  const [rows] = await pool.query(query, [date, timeSlot]);  
   return rows;
 };
 
