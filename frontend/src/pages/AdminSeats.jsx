@@ -92,7 +92,7 @@ const AdminSeats = () => {
 
  
   const pageStyle = {
-    backgroundColor: '#f5f5f5',
+   background: 'linear-gradient(to right, #fceabb, #f8b500)',
     minHeight: '100vh',
     padding: '40px 10px'
   };
@@ -175,12 +175,12 @@ const AdminSeats = () => {
 
   const reportButtonStyle = {
     ...buttonStyle,
-    backgroundColor: '#ff9d4dff',
+    backgroundColor: '#b33600ff',
     marginBottom: '20px',
     width: 'fit-content'
   };
 
-  const reportButtonHover = '#b33600ff';
+  const reportButtonHover = '#dd6b3bff';
 
   return (
     <div style={pageStyle}>

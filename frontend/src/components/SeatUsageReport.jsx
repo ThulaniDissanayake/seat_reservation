@@ -68,7 +68,7 @@ const SeatUsageReport = () => {
   if (error) return <p style={{ color: 'red', textAlign: 'center', marginTop: '30px' }}>{error}</p>;
 
   const pageStyle = {
-    backgroundColor: '#f5f5f5',
+    background: 'linear-gradient(to right, #fceabb, #f8b500)',
     minHeight: '100vh',
     padding: '40px 20px',
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -102,7 +102,7 @@ const SeatUsageReport = () => {
   };
 
   const tableHeaderStyle = {
-    backgroundColor: '#f46e49ff',
+    backgroundColor: '#22211dff',
     color: '#fff',
     textAlign: 'center',
     padding: '12px',

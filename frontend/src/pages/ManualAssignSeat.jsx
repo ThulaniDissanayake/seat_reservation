@@ -38,7 +38,7 @@ const ManualAssignSeat = () => {
   };
 
   const pageStyle = {
-    backgroundColor: '#f5f5f5',
+    background: 'linear-gradient(to right, #fceabb, #f8b500)',
     minHeight: '100vh',
     padding: '60px 20px',
   };
@@ -51,7 +51,7 @@ const ManualAssignSeat = () => {
     borderRadius: '10px',
     boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)', 
   };
 
   const headingStyle = {

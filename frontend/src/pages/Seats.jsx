@@ -34,17 +34,17 @@ const Seats = () => {
     }
     try {
       await api.post('/reservations', { seat_id, date, time_slot: timeSlot });
-      setMessage('✅ Seat reserved successfully!');
+      setMessage(' Seat reserved successfully!');
       fetchSeats();
     } catch (err) {
-      setMessage(err.response?.data?.message || '❌ Reservation failed');
+      setMessage(err.response?.data?.message || ' Reservation failed');
     }
   };
 
-  // === STYLES ===
+ 
   const styles = {
     page: {
-      background: '#f5f5f5',
+     background: 'linear-gradient(to right, #fceabb, #f8b500)',
       minHeight: '100vh',
       padding: '40px 0',
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -53,7 +53,7 @@ const Seats = () => {
       maxWidth: '780px',
       margin: '0 auto',
       padding: '25px 30px',
-      background: '#fff',
+      backgroundColor: 'rgba(255, 255, 255, 0.75)', 
       borderRadius: '12px',
       boxShadow: '0 6px 18px rgba(0, 0, 0, 0.1)',
     },
