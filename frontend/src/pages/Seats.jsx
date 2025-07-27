@@ -34,118 +34,139 @@ const Seats = () => {
     }
     try {
       await api.post('/reservations', { seat_id, date, time_slot: timeSlot });
-      setMessage('Seat reserved successfully!');
+      setMessage('✅ Seat reserved successfully!');
       fetchSeats();
     } catch (err) {
-      setMessage(err.response?.data?.message || 'Reservation failed');
+      setMessage(err.response?.data?.message || '❌ Reservation failed');
     }
   };
 
-  const pageStyle = {
-    backgroundColor: '#e0e0e0',
-    minHeight: '100vh',
-    padding: '40px 0',
-  };
-
-  const containerStyle = {
-    maxWidth: '700px',
-    margin: '40px auto',
-    padding: '20px',
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    backgroundColor: '#fefefe',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-  };
-
-  const headingStyle = {
-    color: '#f0a500',
-    textAlign: 'center',
-    marginBottom: '25px',
-    fontSize: '2rem',
-  };
-
-  const messageStyle = {
-    color: message.toLowerCase().includes('failed') || message.toLowerCase().includes('no') ? '#e74c3c' : '#27ae60',
-    textAlign: 'center',
-    marginBottom: '20px',
-    fontWeight: '600',
-  };
-
-  const inputStyle = {
-    padding: '10px',
-    marginRight: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '1rem',
-  };
-
-  const listStyle = {
-    listStyleType: 'none',
-    padding: 0,
-  };
-
-  const listItemStyle = {
-    backgroundColor: '#fff',
-    borderRadius: '6px',
-    marginBottom: '15px',
-    padding: '15px 20px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fontSize: '1rem',
-  };
-
-  const buttonStyle = {
-    backgroundColor: '#f0a500',
-    border: 'none',
-    padding: '8px 14px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    color: '#333',
-    fontWeight: '700',
-    transition: 'background-color 0.3s ease',
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: '#d18e00',
+  // === STYLES ===
+  const styles = {
+    page: {
+      background: '#f5f5f5',
+      minHeight: '100vh',
+      padding: '40px 0',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    },
+    container: {
+      maxWidth: '780px',
+      margin: '0 auto',
+      padding: '25px 30px',
+      background: '#fff',
+      borderRadius: '12px',
+      boxShadow: '0 6px 18px rgba(0, 0, 0, 0.1)',
+    },
+    heading: {
+      color: '#2c3e50',
+      textAlign: 'center',
+      marginBottom: '30px',
+      fontSize: '2rem',
+    },
+    message: {
+      textAlign: 'center',
+      marginBottom: '20px',
+      color: message.toLowerCase().includes('fail') || message.toLowerCase().includes('no') ? '#e74c3c' : '#27ae60',
+      fontWeight: 600,
+    },
+    controls: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      gap: '15px',
+      marginBottom: '30px',
+    },
+    input: {
+      padding: '10px 12px',
+      borderRadius: '6px',
+      border: '1px solid #ccc',
+      fontSize: '1rem',
+      minWidth: '180px',
+    },
+    list: {
+      listStyleType: 'none',
+      padding: 0,
+      margin: 0,
+    },
+    listItem: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#fafafa',
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      padding: '16px 20px',
+      marginBottom: '15px',
+      transition: 'box-shadow 0.3s',
+    },
+    listItemHover: {
+      boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
+    },
+    button: {
+      backgroundColor: '#3498db',
+      color: '#fff',
+      border: 'none',
+      padding: '8px 16px',
+      borderRadius: '6px',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+    },
+    buttonHover: {
+      backgroundColor: '#2980b9',
+    },
   };
 
   return (
-    <div style={pageStyle}>
-      <div style={containerStyle}>
-        <h2 style={headingStyle}>Available Seats</h2>
-        {message && <p style={messageStyle}>{message}</p>}
-        <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+    <div style={styles.page}>
+      <div style={styles.container}>
+        <h2 style={styles.heading}>Available Seats</h2>
+        {message && <p style={styles.message}>{message}</p>}
+
+        <div style={styles.controls}>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            style={inputStyle}
+            style={styles.input}
           />
           <select
             value={timeSlot}
             onChange={(e) => setTimeSlot(e.target.value)}
-            style={inputStyle}
+            style={styles.input}
           >
             <option value="">Select Time Slot</option>
             <option value="09:00-12:00">09:00-12:00</option>
             <option value="13:00-17:00">13:00-17:00</option>
           </select>
         </div>
-        <ul style={listStyle}>
+
+        <ul style={styles.list}>
           {seats.map((seat) => (
-            <li key={seat.id} style={listItemStyle}>
+            <li
+              key={seat.id}
+              style={{
+                ...styles.listItem,
+                ...(seat.status.toLowerCase() === 'available' ? styles.listItemHover : {}),
+              }}
+            >
               <span>
-                <strong>{seat.seatNumber || seat.seat_number}</strong> — {seat.location} —{' '}
-                <em style={{ textTransform: 'capitalize' }}>{seat.status}</em>
+                <strong>{seat.seatNumber || seat.seat_number}</strong> — {seat.location}{' '}
+                <em style={{
+                  color: seat.status === 'available' ? '#27ae60' : '#e67e22',
+                  fontStyle: 'normal',
+                  marginLeft: '8px',
+                }}>
+                  ({seat.status})
+                </em>
               </span>
+
               {seat.status.toLowerCase() === 'available' && (
                 <button
-                  style={buttonStyle}
+                  style={styles.button}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.button.backgroundColor}
                   onClick={() => reserveSeat(seat.id)}
-                  onMouseOver={e => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor}
-                  onMouseOut={e => e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor}
                 >
                   Reserve
                 </button>
