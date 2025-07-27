@@ -48,6 +48,7 @@ const AdminReservations = () => {
   
   const stripColors = ['#fff7e6', '#fff0b8']; 
 
+
   const styles = {
     container: {
       maxWidth: '800px',
