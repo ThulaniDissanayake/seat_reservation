@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import api from '../api/api';
+import { QRCodeCanvas } from 'qrcode.react';
+import { useAuth } from '../context/AuthContext';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [message, setMessage] = useState('');
-  const [hoveredButtonId, setHoveredButtonId] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({ seat_id: '', date: '', time_slot: '' });
 
@@ -24,7 +25,6 @@ const Reservations = () => {
 
   const cancelReservation = async (id) => {
     if (!window.confirm('Are you sure you want to cancel this reservation?')) return;
-
     try {
       await api.delete(`/reservations/${id}`);
       setMessage('Reservation cancelled');
@@ -65,8 +65,9 @@ const Reservations = () => {
     }
   };
 
+  // === STYLES ===
   const pageStyle = {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#f5f5f5',
     minHeight: '100vh',
     padding: '40px 0',
   };
@@ -76,22 +77,23 @@ const Reservations = () => {
     margin: '50px auto',
     padding: '20px',
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    backgroundColor: '#fefefe',
-    borderRadius: '10px',
+    backgroundColor: '#fff',
+    borderRadius: '12px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
   };
 
   const headingStyle = {
-    color: '#f0a500',
+    color: '#333',
     textAlign: 'center',
     marginBottom: '25px',
     fontSize: '2rem',
+    fontWeight: '600',
   };
 
   const messageStyle = {
     color: message.toLowerCase().includes('failed') ? '#e74c3c' : '#27ae60',
     textAlign: 'center',
-    marginBottom: '15px',
+    marginBottom: '20px',
     fontWeight: '600',
   };
 
@@ -101,45 +103,69 @@ const Reservations = () => {
   };
 
   const listItemStyle = {
-    backgroundColor: '#fff',
-    borderRadius: '6px',
+    backgroundColor: '#fafafa',
+    borderRadius: '8px',
     marginBottom: '15px',
     padding: '15px 20px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-    display: 'flex',
-    flexDirection: 'column',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
     fontSize: '1rem',
+    borderLeft: '6px solid #f0a500',
   };
 
   const buttonContainerStyle = {
     marginTop: '10px',
     display: 'flex',
     gap: '10px',
+    flexWrap: 'wrap',
   };
 
-  const buttonStyle = {
-    backgroundColor: '#f0a500',
-    border: 'none',
+  const baseButtonStyle = {
     padding: '8px 14px',
-    borderRadius: '5px',
+    borderRadius: '6px',
+    border: 'none',
     cursor: 'pointer',
-    color: '#333',
-    fontWeight: '700',
+    fontWeight: '600',
+    fontSize: '0.95rem',
+    color: '#fff',
     transition: 'background-color 0.3s ease',
   };
 
-  const buttonHoverStyle = {
-    backgroundColor: '#d18e00',
+  const primaryButton = {
+    ...baseButtonStyle,
+    backgroundColor: '#f0a500', // Yellow-orange
+  };
+
+  const dangerButton = {
+    ...baseButtonStyle,
+    backgroundColor: '#d35400', // Deep orange for "Cancel Reservation"
+  };
+
+  const cancelButton = {
+    ...baseButtonStyle,
+    backgroundColor: '#333', // Black
   };
 
   const inputStyle = {
     padding: '6px 10px',
-    marginRight: '10px',
+    marginBottom: '8px',
     borderRadius: '5px',
     border: '1px solid #ccc',
     fontSize: '1rem',
-    marginBottom: '5px',
+    width: '100%',
+    boxSizing: 'border-box',
   };
+
+  const labelStyle = {
+    display: 'block',
+    marginBottom: '5px',
+    fontWeight: '500',
+  };
+
+  const statusStyle = (status) => ({
+    color: status.toLowerCase() === 'cancelled' ? '#dc3545' : '#28a745',
+    fontWeight: '700',
+    textTransform: 'capitalize',
+  });
 
   return (
     <div style={pageStyle}>
@@ -152,84 +178,62 @@ const Reservations = () => {
             <li key={r.id} style={listItemStyle}>
               {editingId === r.id ? (
                 <>
-                  <div>
-                    <label>
-                      Seat ID:{' '}
-                      <input
-                        type="number"
-                        name="seat_id"
-                        value={editData.seat_id}
-                        onChange={handleEditChange}
-                        style={inputStyle}
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      Date:{' '}
-                      <input
-                        type="date"
-                        name="date"
-                        value={editData.date}
-                        onChange={handleEditChange}
-                        style={inputStyle}
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      Time Slot:{' '}
-                      <select
-                        name="time_slot"
-                        value={editData.time_slot}
-                        onChange={handleEditChange}
-                        style={inputStyle}
-                      >
-                        <option value="">Select Time Slot</option>
-                        <option value="09:00-12:00">09:00-12:00</option>
-                        <option value="13:00-17:00">13:00-17:00</option>
-                      </select>
-                    </label>
-                  </div>
+                  <label style={labelStyle}>Seat ID</label>
+                  <input
+                    type="number"
+                    name="seat_id"
+                    value={editData.seat_id}
+                    onChange={handleEditChange}
+                    style={inputStyle}
+                  />
+
+                  <label style={labelStyle}>Date</label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={editData.date}
+                    onChange={handleEditChange}
+                    style={inputStyle}
+                  />
+
+                  <label style={labelStyle}>Time Slot</label>
+                  <select
+                    name="time_slot"
+                    value={editData.time_slot}
+                    onChange={handleEditChange}
+                    style={inputStyle}
+                  >
+                    <option value="">Select Time Slot</option>
+                    <option value="09:00-12:00">09:00-12:00</option>
+                    <option value="13:00-17:00">13:00-17:00</option>
+                  </select>
+
                   <div style={buttonContainerStyle}>
-                    <button
-                      style={buttonStyle}
-                      onClick={() => submitEdit(r.id)}
-                      onMouseOver={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-                      onMouseOut={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}
-                    >
+                    <button style={primaryButton} onClick={() => submitEdit(r.id)}>
                       Save
                     </button>
-                    <button
-                      style={{ ...buttonStyle, backgroundColor: '#ccc', color: '#555' }}
-                      onClick={cancelEdit}
-                    >
+                    <button style={cancelButton} onClick={cancelEdit}>
                       Cancel
                     </button>
                   </div>
                 </>
               ) : (
                 <>
-                  <span>
-                    Seat <strong>{r.seat_id}</strong> | Date: <strong>{r.date}</strong> | Time:{' '}
-                    <strong>{r.time_slot}</strong> | Status: <strong>{r.status}</strong>
-                  </span>
+                  <div>
+                    <span>
+                      <strong>Seat:</strong> {r.seat_id} |{' '}
+                      <strong>Date:</strong> {r.date} |{' '}
+                      <strong>Time:</strong> {r.time_slot} |{' '}
+                      <strong>Status:</strong>{' '}
+                      <span style={statusStyle(r.status)}>{r.status}</span>
+                    </span>
+                  </div>
                   {r.status.toLowerCase() !== 'cancelled' && (
                     <div style={buttonContainerStyle}>
-                      <button
-                        style={hoveredButtonId === r.id ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                        onClick={() => cancelReservation(r.id)}
-                        onMouseEnter={() => setHoveredButtonId(r.id)}
-                        onMouseLeave={() => setHoveredButtonId(null)}
-                      >
+                      <button style={dangerButton} onClick={() => cancelReservation(r.id)}>
                         Cancel
                       </button>
-                      <button
-                        style={hoveredButtonId === r.id ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                        onClick={() => startEdit(r)}
-                        onMouseEnter={() => setHoveredButtonId(r.id)}
-                        onMouseLeave={() => setHoveredButtonId(null)}
-                      >
+                      <button style={primaryButton} onClick={() => startEdit(r)}>
                         Modify
                       </button>
                     </div>
