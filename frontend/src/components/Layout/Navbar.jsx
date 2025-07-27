@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { FaHome } from 'react-icons/fa'; // 🏠 Home icon
+import { FaHome } from 'react-icons/fa'; 
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -40,13 +40,21 @@ const Navbar = () => {
     >
       {/* Left Section */}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <NavLink
-          to="/"
-          style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
-        >
-          <FaHome style={{ marginRight: '5px' }} />
-          Home
-        </NavLink>
+       
+        {user ? (
+          <span style={{ ...baseLinkStyle, opacity: 0.4, pointerEvents: 'none' }}>
+            <FaHome style={{ marginRight: '5px' }} />
+            Home
+          </span>
+        ) : (
+          <NavLink
+            to="/"
+            style={({ isActive }) => (isActive ? { ...baseLinkStyle, ...activeLinkStyle } : baseLinkStyle)}
+          >
+            <FaHome style={{ marginRight: '5px' }} />
+            Home
+          </NavLink>
+        )}
 
         {user ? (
           <>
