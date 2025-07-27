@@ -37,7 +37,7 @@ const Register = () => {
     width: '100%',
     padding: '40px 30px',
     borderRadius: '20px',
-    backgroundColor: 'rgba(255, 255, 255, 0.75)', // semi-transparent white
+    backgroundColor: 'rgba(255, 255, 255, 0.75)', 
     boxShadow: '0 15px 30px rgba(0, 0, 0, 0.1)',
     backdropFilter: 'blur(8px)',
     animation: 'fadeIn 0.6s ease forwards',
@@ -96,7 +96,7 @@ const Register = () => {
     fontStyle: 'italic',
   };
 
-  // Animation keyframes (inject via style tag)
+  
   const fadeInKeyframes = `
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(15px); }
@@ -104,7 +104,7 @@ const Register = () => {
     }
   `;
 
-  // To handle focus style dynamically
+ 
   const [focusedInput, setFocusedInput] = useState(null);
 
   return (
