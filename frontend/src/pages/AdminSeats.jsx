@@ -90,7 +90,7 @@ const AdminSeats = () => {
     }
   };
 
-  // ✨ Style Definitions
+ 
   const pageStyle = {
     backgroundColor: '#f5f5f5',
     minHeight: '100vh',
@@ -134,7 +134,7 @@ const AdminSeats = () => {
   const buttonStyle = {
     padding: '10px 18px',
     fontSize: '1rem',
-    backgroundColor: '#e95119ff', // coral
+    backgroundColor: '#e95119ff', 
     color: 'white',
     border: 'none',
     borderRadius: '6px',
@@ -143,8 +143,7 @@ const AdminSeats = () => {
     transition: 'background-color 0.3s ease'
   };
 
-  const buttonHoverStyle = { backgroundColor: '#fa7851ff' }; // darker coral
-
+  const buttonHoverStyle = { backgroundColor: '#fa7851ff' }; 
   const listContainerStyle = {
     maxHeight: '320px',
     overflowY: 'auto',
