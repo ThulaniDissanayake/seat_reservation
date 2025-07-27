@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../api/api';
-import { QRCodeCanvas } from 'qrcode.react';
-import { useAuth } from '../context/AuthContext';
+
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -132,17 +131,17 @@ const Reservations = () => {
 
   const primaryButton = {
     ...baseButtonStyle,
-    backgroundColor: '#f0a500', // Yellow-orange
+    backgroundColor: '#f0a500', 
   };
 
   const dangerButton = {
     ...baseButtonStyle,
-    backgroundColor: '#d35400', // Deep orange for "Cancel Reservation"
+    backgroundColor: '#d35400', 
   };
 
   const cancelButton = {
     ...baseButtonStyle,
-    backgroundColor: '#333', // Black
+    backgroundColor: '#333', 
   };
 
   const inputStyle = {
